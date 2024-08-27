@@ -1,0 +1,56 @@
+package com.example.Controllers;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.Repositorys.CharRepo;
+import com.example.demo.CharacterSheet;
+
+@RestController
+@RequestMapping("api/v1/charSheet/admin")
+public class CommandController {
+	@Autowired
+	private CharRepo repo;
+	
+	@PostMapping("/character")
+	public CharacterSheet addCharacter(@RequestBody CharacterSheet character) {
+		return repo.save(character);
+	}
+	@PostMapping("/emptyCharacter")
+	public CharacterSheet addFreshCharacter() {
+		CharacterSheet c = new CharacterSheet();
+		return repo.save(c);
+	}
+	@PutMapping("/character/{id}")
+	public CharacterSheet updateCharacter(@PathVariable int id) {
+		Optional<CharacterSheet> c = repo.findById(id);
+		if(!c.isPresent()) {
+			return null;
+		}
+		CharacterSheet nc = new CharacterSheet();
+		nc.setArmourClass(c.get().getArmourClass());
+		nc.setHealth(c.get().getHealth());
+		nc.setInitative(c.get().getInitative());
+		nc.setSpeed(c.get().getSpeed());
+		nc.setSkills(c.get().getSkills());
+		nc.setStats(c.get().getStats());
+		nc.setTempHealth(c.get().getTempHealth());
+		nc.setName(c.get().getName());
+		nc.setProficiencyBonus(c.get().getProficiencyBonus());
+		nc.setBackground(c.get().getBackground());
+		return repo.save(nc);
+		}
+	
+	
+	
+}

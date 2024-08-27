@@ -1,0 +1,32 @@
+package com.example.Controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.demo.*;
+import com.example.demo.Character;
+
+@Controller
+@RequestMapping("api/v1/charSheet/admin")
+public class CommandController {
+	@Autowired
+	private CharRepo repo;
+	
+	@PostMapping("/character")
+	public Character addCharacter(@RequestBody Character character) {
+		return repo.save(character);
+	}
+	@postMapping("/emptyCharacter")
+	public Character addFreshCharacter() {
+		Character = new Character();
+	}
+	
+	
+	
+}

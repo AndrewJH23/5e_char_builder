@@ -1,0 +1,36 @@
+package com.example.Controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.Repositorys.CharRepo;
+import com.example.Repositorys.ResourceRepo;
+import com.example.demo.Resource;
+
+@RestController
+@RequestMapping("api/v1/resource")
+public class ResourceController {
+	
+	@Autowired
+	private ResourceRepo repo;
+	
+	@Autowired
+	private CharRepo charRepo;
+	
+	//query
+	@GetMapping("/all")
+	public List<Resource> fetchAllResources(){ 
+		return repo.findAll();
+	}
+	
+	@GetMapping("/all/{id}")
+	public List<Resource> fetchResources(){
+		
+	}
+	
+	//command
+}

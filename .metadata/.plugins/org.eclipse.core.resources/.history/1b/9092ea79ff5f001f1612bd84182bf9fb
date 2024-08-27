@@ -1,0 +1,69 @@
+package com.example.Controllers;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.demo.*;
+import com.example.demo.Character;
+
+@Controller
+@RequestMapping("api/v1/charSheet")
+public class GetController {
+	@Autowired
+	private CharRepo repo;
+	
+	@GetMapping("/skills/{id}")
+	public Skills getSkills(@PathVariable int id) {
+		Optional<Character> person = repo.findById(id);
+		if(person.isPresent()) {
+			return person.get().getSkills();
+		}
+		return new Skills();	
+	}
+	
+	@GetMapping("/stats/{id}/{stat}")
+	public int getStats(@PathVariable int id,@RequestBody String stat) {
+		Optional<Character> person = repo.findById(id);
+		if(!person.isPresent()) {
+			return -101;
+		}
+		return -100;	
+	}
+	
+	@GetMapping("/skills/{id}/{skill}")
+	public int getSkill(@PathVariable int id, @RequestBody String skill) {
+		Optional<Character> person = repo.findById(id);
+		if(!person.isPresent()) {
+			return -99;
+		}
+		
+		switch(skill) {
+		case "Acrobatics":  return person.get().getSkills().getAcrobatics();
+		case "AnimalHandling": return person.get().getSkills().getAnimalHandling();
+		case "Arcana": return person.get().getSkills().getArcana();
+		case "Athletics": return person.get().getSkills().getAthletics();
+		case "Deception": return person.get().getSkills().getDeception();
+		case "History": return person.get().getSkills().getHistory();
+		case "Insight": return person.get().getSkills().getInsight();
+		case "Intimidation": return person.get().getSkills().getIntimidation();
+		case "Investigation": return person.get().getSkills().getInvestigation();
+		case "Medicine": return person.get().getSkills().getMedicine();
+		case "Nature": return person.get().getSkills().getNature();
+		case "Perception": return person.get().getSkills().getPerception();
+		case "Performance": return person.get().getSkills().getPerformance();
+		case "Persuasion": return person.get().getSkills().getPersuasion();
+		case "Religion": return person.get().getSkills().getReligion();
+		case "SleightOfHand": return person.get().getSkills().getSleightOfHand();
+		case "Stealth": return person.get().getSkills().getStealth();
+		case "Survival": return person.get().getSkills().getSurvival();		
+		}
+		return -98;
+	}
+}

@@ -1,0 +1,21 @@
+package com.example.Controllers;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.demo.CharRepo;
+import com.example.demo.Character;
+
+@Controller
+@RequestMapping("api/v1/charSheet")
+public class CommandController {
+	private CharRepo repo;
+	
+	@GetMapping("/characters")
+	public List<Character> getCharacters() {
+		return repo.findAll();
+	}
+}

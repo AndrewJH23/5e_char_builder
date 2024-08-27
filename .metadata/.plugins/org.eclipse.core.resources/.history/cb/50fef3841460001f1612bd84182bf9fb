@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: charBuilder
+  datasource:
+    url: jdbc:mysql://localhost:8081/chardata
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
